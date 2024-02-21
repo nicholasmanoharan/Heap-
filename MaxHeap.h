@@ -1,23 +1,27 @@
 #ifndef MAX_HEAP_H
 #define MAX_HEAP_H
 
+#define MAX_SIZE 100
+
+#include <iostream>
+#include <cmath>
+
 class MaxHeap {
-   
-    private: 
-        
-        int heap [MAX_SIZE]; 
-        int size;
-        void heapifyUp(int index); 
-        void heapifyDown(int index);
+private:
+    int heap[MAX_SIZE];
+    int heapSize;
+    void heapifyUp(int index); 
+    void heapifyDown(int index);
 
-    public: 
-        
-        MaxHeap(); 
-        void insert(int value); 
-        int remove(); 
-        void removeAll(); 
-        void display(); 
+public:
+    MaxHeap();
 
+    void insert(int value);
+    int remove();
+    int removeAll();
+    void display();
+    int getSize() const;
 };
 
-#endif
+#endif 
+
