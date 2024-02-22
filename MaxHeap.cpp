@@ -3,7 +3,7 @@
 MaxHeap::MaxHeap() : heapSize(0) {}
 
 void MaxHeap::heapifyUp(int index) {
-    if (index <= 1) return; 
+    if (index <= 1) return; // Root has been reached
     int parent = index / 2;
     if (heap[index] > heap[parent]) {
         std::swap(heap[index], heap[parent]);
@@ -73,3 +73,7 @@ void MaxHeap::display() {
     }
 }
 
+// Definition of getSize() member function
+int MaxHeap::getSize() const {
+    return heapSize;
+}
