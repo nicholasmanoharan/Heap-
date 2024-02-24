@@ -21,7 +21,6 @@ int main() {
             }
         }
 
-   
         std::cout << "Heap:" << std::endl;
         heap.display();
         std::cout << "Removing elements:" << std::endl;
@@ -30,8 +29,6 @@ int main() {
         std::getline(std::cin, input);
 
     } while (input == "yes");
-        return 0;
-    
 
-    
+    return 0;
 }
