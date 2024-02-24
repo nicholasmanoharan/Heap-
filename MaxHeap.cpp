@@ -7,13 +7,13 @@ void MaxHeap::insert(int value) {
         heap[++heapSize] = value;
         heapifyUp(heapSize);
     } else {
-        std::cerr << "Heap is full. Cannot insert more elements." << std::endl;
+        std::cerr << "The heap is full" << std::endl;
     }
 }
 
 int MaxHeap::remove() {
     if (heapSize == 0) {
-        std::cerr << "The heap is empty." << std::endl;
+        std::cerr << "The heap is empty!!" << std::endl;
         return -1;
     }
 
@@ -55,7 +55,7 @@ void MaxHeap::loadFromFile(const std::string& fileName) {
         }
         file.close();
     } else {
-        std::cerr << "Failed to open file: " << fileName << std::endl;
+        std::cerr << "Unable to open the file: " << fileName << std::endl;
     }
 }
 
