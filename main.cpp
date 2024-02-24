@@ -12,7 +12,7 @@ int main() {
     std::cout << "Heap:" << std::endl;
     heap.display();
     
-    std::cout << "Removing elements:" << std::endl;
+    std::cout << "\nRemoving elements:" << std::endl;
     while (heap.getSize() > 0) { 
         std::cout << "Removed: " << heap.remove() << std::endl;
     }
