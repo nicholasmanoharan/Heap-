@@ -3,7 +3,7 @@
 MaxHeap::MaxHeap() : heapSize(0) {}
 
 void MaxHeap::heapifyUp(int index) {
-    if (index <= 1) return; // Root has been reached
+    if (index <= 1) return; 
     int parent = index / 2;
     if (heap[index] > heap[parent]) {
         std::swap(heap[index], heap[parent]);
@@ -50,7 +50,7 @@ int MaxHeap::remove() {
 int MaxHeap::removeAll() {
     int removedCount = 0;
     while (heapSize > 0) {
-        std::cout << remove() << std::endl;
+        std::cout << "Removed: " << remove() << std::endl;
         removedCount++;
     }
     return removedCount;
@@ -73,7 +73,21 @@ void MaxHeap::display() {
     }
 }
 
-// Definition of getSize() member function
 int MaxHeap::getSize() const {
     return heapSize;
+}
+
+void MaxHeap::loadFromFile(const std::string& fileName) {
+    std::ifstream file(fileName);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open file: " << fileName << std::endl;
+        return;
+    }
+
+    int num;
+    while (file >> num) {
+        insert(num);
+    }
+
+    file.close();
 }
