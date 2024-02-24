@@ -8,7 +8,7 @@ int main() {
     std::string input;
 
     do {
-        std::cout << "Enter numbers (separated by spaces) or filename: ";
+        std::cout << "Either enter numbers, separated by spaces, or a filename: ";
         std::getline(std::cin, input);
         std::ifstream file(input);
         if (file) {
@@ -23,9 +23,9 @@ int main() {
 
         std::cout << "Heap:" << std::endl;
         heap.display();
-        std::cout << "Removing elements:" << std::endl;
+        std::cout << "Removing the elements:" << std::endl;
         heap.removeAll();
-        std::cout << "Do you want to use a new set of numbers? (yes/no): ";
+        std::cout << "Want to use a new set of numbers? (yes/no): ";
         std::getline(std::cin, input);
 
     } while (input == "yes");
