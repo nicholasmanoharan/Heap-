@@ -2,18 +2,75 @@
 
 MaxHeap::MaxHeap() : heapSize(0) {}
 
+void MaxHeap::insert(int value) {
+    if (heapSize < MAX_SIZE) {
+        heap[++heapSize] = value;
+        heapifyUp(heapSize);
+    } else {
+        std::cerr << "Heap is full. Cannot insert more elements." << std::endl;
+    }
+}
+
+int MaxHeap::remove() {
+    if (heapSize == 0) {
+        std::cerr << "The heap is empty." << std::endl;
+        return -1;
+    }
+
+    int root = heap[1];
+    heap[1] = heap[heapSize--];
+    heapifyDown(1);
+    return root;
+}
+
+void MaxHeap::removeAll() {
+    while (heapSize > 0) {
+        std::cout << remove() << std::endl;
+    }
+}
+
+void MaxHeap::display() {
+    int levels = static_cast<int>(log2(heapSize)) + 1;
+    int currLevelCount = 0;
+    int level = 0;
+
+    for (int i = 1; i <= heapSize; i++) {
+        if (currLevelCount == 0) {
+            std::cout << std::endl;
+            currLevelCount = pow(2, level);
+            level++;
+        }
+        std::cout << heap[i] << "\t";
+        currLevelCount--;
+    }
+    std::cout << std::endl;
+}
+
+void MaxHeap::loadFromFile(const std::string& fileName) {
+    std::ifstream file(fileName);
+    if (file.is_open()) {
+        int num;
+        while (file >> num) {
+            insert(num);
+        }
+        file.close();
+    } else {
+        std::cerr << "Failed to open file: " << fileName << std::endl;
+    }
+}
+
 void MaxHeap::heapifyUp(int index) {
-    if (index <= 1) return; 
     int parent = index / 2;
-    if (heap[index] > heap[parent]) {
+    while (index > 1 && heap[index] > heap[parent]) {
         std::swap(heap[index], heap[parent]);
-        heapifyUp(parent);
+        index = parent;
+        parent = index / 2;
     }
 }
 
 void MaxHeap::heapifyDown(int index) {
-    int leftChild = index * 2;
-    int rightChild = index * 2 + 1;
+    int leftChild = 2 * index;
+    int rightChild = 2 * index + 1;
     int largest = index;
 
     if (leftChild <= heapSize && heap[leftChild] > heap[largest])
@@ -25,69 +82,4 @@ void MaxHeap::heapifyDown(int index) {
         std::swap(heap[index], heap[largest]);
         heapifyDown(largest);
     }
-}
-
-void MaxHeap::insert(int value) {
-    if (heapSize >= MAX_SIZE) {
-        std::cerr << "Heap is full!" << std::endl;
-        return;
-    }
-    heap[++heapSize] = value;
-    heapifyUp(heapSize);
-}
-
-int MaxHeap::remove() {
-    if (heapSize <= 0) {
-        std::cerr << "Heap is empty!" << std::endl;
-        return -1;
-    }
-    int root = heap[1];
-    heap[1] = heap[heapSize--];
-    heapifyDown(1);
-    return root;
-}
-
-int MaxHeap::removeAll() {
-    int removedCount = 0;
-    while (heapSize > 0) {
-        std::cout << "Removed: " << remove() << std::endl;
-        removedCount++;
-    }
-    return removedCount;
-}
-
-void MaxHeap::display() {
-    int levels = log2(heapSize) + 1;
-    int currLevelNodes = 1;
-    int currLevelCount = 0;
-
-    for (int i = 1; i <= heapSize; i++) {
-        std::cout << heap[i] << " ";
-
-        currLevelCount++;
-        if (currLevelCount == currLevelNodes) {
-            std::cout << std::endl;
-            currLevelCount = 0;
-            currLevelNodes *= 2;
-        }
-    }
-}
-
-int MaxHeap::getSize() const {
-    return heapSize;
-}
-
-void MaxHeap::loadFromFile(const std::string& fileName) {
-    std::ifstream file(fileName);
-    if (!file.is_open()) {
-        std::cerr << "Failed to open file: " << fileName << std::endl;
-        return;
-    }
-
-    int num;
-    while (file >> num) {
-        insert(num);
-    }
-
-    file.close();
 }
